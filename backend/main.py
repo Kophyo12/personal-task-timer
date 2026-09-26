@@ -28,6 +28,7 @@ def get_db():
     finally:
         db.close()
 
+
 @app.post("/tasks")
 def create_task(
         task : schemas.taskCreate,
@@ -149,7 +150,9 @@ def get_progress(
         "is_running": is_running,
         "current_start_time": current_start_time
     }
-
+@app.get("/")
+def root():
+    return {"message": "Personal Task Timer API is running"}
 
 @app.get("/tasks")
 def get_tasks(db: Session = Depends(get_db)):
