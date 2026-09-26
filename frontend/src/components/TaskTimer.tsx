@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_URL } from "../api";
 
 type Progress = {
   task_id: number;
@@ -23,8 +24,8 @@ function TaskTimer({ taskId }: Props) {
 
   async function loadProgress() {
     const response = await fetch(
-      `http://127.0.0.1:8000/tasks/${taskId}/progress`
-    );
+  `${API_URL}/tasks/${taskId}/progress`
+);
 
     const data = await response.json();
 
@@ -92,7 +93,7 @@ function TaskTimer({ taskId }: Props) {
       : "start";
 
     const response = await fetch(
-      `http://127.0.0.1:8000/tasks/${taskId}/${action}`,
+  `${API_URL}/tasks/${taskId}/${action}`,
       {
         method: "POST",
       }

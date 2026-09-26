@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import TaskTimer from "./components/TaskTimer";
+import { API_URL } from "./api";
 
 type Task = {
   id: number;
@@ -16,9 +17,7 @@ function App() {
   const [targetHours, setTargetHours] = useState("");
 
   async function loadTasks() {
-    const response = await fetch(
-      "http://127.0.0.1:8000/tasks"
-    );
+    const response = await fetch(`${API_URL}/tasks`);
 
     const data = await response.json();
 
@@ -41,7 +40,7 @@ function App() {
     }
 
     const response = await fetch(
-      "http://127.0.0.1:8000/tasks",
+  `${API_URL}/tasks`,
       {
         method: "POST",
 
