@@ -1,0 +1,594 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Patrick+Hand&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+
+  background:
+    linear-gradient(
+      rgba(80, 110, 150, 0.07) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(80, 110, 150, 0.07) 1px,
+      transparent 1px
+    ),
+    #dce5ea;
+
+  background-size: 24px 24px;
+
+  color: #292929;
+
+  font-family:
+    "DM Mono",
+    monospace;
+}
+
+button {
+  font: inherit;
+}
+
+.app {
+  width: 100%;
+  padding: 70px 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.notebook {
+  position: relative;
+
+  width: min(100%, 920px);
+
+  padding: 52px;
+
+  background-color: #faf8f1;
+
+  background-image:
+    linear-gradient(
+      rgba(86, 118, 150, 0.07) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(86, 118, 150, 0.07) 1px,
+      transparent 1px
+    );
+
+  background-size: 28px 28px;
+
+  border: 1px solid rgba(50, 50, 50, 0.12);
+
+  border-radius: 32px;
+
+  box-shadow:
+    0 30px 70px rgba(43, 52, 59, 0.12);
+}
+
+.notebook::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+  left: 34px;
+
+  width: 1px;
+
+  background: rgba(211, 112, 112, 0.2);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  gap: 30px;
+}
+
+.eyebrow {
+  margin: 0 0 5px;
+
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+
+  color: #8a8a84;
+}
+
+.header h1 {
+  margin: 0;
+
+  font-family:
+    "Patrick Hand",
+    cursive;
+
+  font-size: clamp(3rem, 7vw, 5rem);
+
+  line-height: 1;
+
+  font-weight: 400;
+
+  color: #252525;
+}
+
+.subtitle {
+  margin: 12px 0 0;
+
+  color: #777770;
+
+  font-size: 0.8rem;
+}
+
+.date {
+  font-family:
+    "Patrick Hand",
+    cursive;
+
+  font-size: 1.4rem;
+
+  color: #666;
+}
+
+.divider {
+  height: 1px;
+
+  margin: 34px 0;
+
+  background: repeating-linear-gradient(
+    to right,
+    rgba(60, 60, 60, 0.35) 0,
+    rgba(60, 60, 60, 0.35) 5px,
+    transparent 5px,
+    transparent 11px
+  );
+}
+
+.task-list {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 24px;
+}
+
+.task-card {
+  position: relative;
+
+  padding: 26px;
+
+  background:
+    rgba(255, 254, 249, 0.78);
+
+  border:
+    1px solid rgba(47, 47, 47, 0.14);
+
+  border-radius: 20px;
+
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+
+  border-color:
+    rgba(47, 47, 47, 0.25);
+
+  box-shadow:
+    0 12px 28px rgba(50, 50, 50, 0.06);
+}
+
+.task-card.running {
+  border-color:
+    rgba(65, 95, 78, 0.35);
+}
+
+.task-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.task-title-row {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+}
+
+.task-title-row h2 {
+  margin: 0;
+
+  font-family:
+    "Patrick Hand",
+    cursive;
+
+  font-size: 2rem;
+
+  font-weight: 400;
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #b8b7af;
+}
+
+.status-running {
+  background: #66826f;
+
+  box-shadow:
+    0 0 0 4px rgba(102, 130, 111, 0.12);
+}
+
+.goal {
+  margin:
+    3px 0 0 19px;
+
+  font-size: 0.7rem;
+
+  color: #88877f;
+}
+
+.percentage {
+  font-family:
+    "Patrick Hand",
+    cursive;
+
+  font-size: 1.2rem;
+
+  color: #66645f;
+}
+
+.progress-track {
+  width: 100%;
+  height: 6px;
+
+  margin: 24px 0;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: #e6e3da;
+}
+
+.progress-fill {
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: #7e9686;
+
+  transition: width 300ms ease;
+}
+
+.stats {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 10px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.stat span {
+  font-size: 0.65rem;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+
+  color: #99978e;
+}
+
+.stat strong {
+  font-family:
+    "Patrick Hand",
+    cursive;
+
+  font-size: 1.45rem;
+
+  font-weight: 400;
+
+  color: #343434;
+}
+
+.timer-section {
+  margin-top: 27px;
+  padding-top: 23px;
+
+  border-top:
+    1px dashed rgba(60, 60, 60, 0.2);
+
+  text-align: center;
+}
+
+.timer-label {
+  margin: 0 0 8px;
+
+  font-size: 0.6rem;
+
+  letter-spacing: 0.16em;
+
+  color: #96948c;
+}
+
+.timer {
+  margin-bottom: 20px;
+
+  font-family:
+    "DM Mono",
+    monospace;
+
+  font-size: clamp(
+    2rem,
+    5vw,
+    3rem
+  );
+
+  letter-spacing: -0.06em;
+
+  color: #282828;
+}
+
+.timer-button {
+  min-width: 135px;
+
+  padding: 12px 22px;
+
+  border: 1.5px solid #343434;
+
+  border-radius: 999px;
+
+  background: transparent;
+
+  color: #292929;
+
+  cursor: pointer;
+
+  transition:
+    background 150ms ease,
+    color 150ms ease,
+    transform 150ms ease;
+}
+
+.timer-button:hover {
+  background: #30302e;
+  color: #faf8f1;
+
+  transform: translateY(-1px);
+}
+
+.timer-button:active {
+  transform: translateY(1px);
+}
+
+.pause-button {
+  background: #30302e;
+  color: #faf8f1;
+}
+
+.pause-button:hover {
+  background: #1f1f1e;
+}
+
+.button-icon {
+  display: inline-block;
+
+  margin-right: 8px;
+
+  font-size: 0.75rem;
+}
+
+/* Tablet / phone */
+
+@media (max-width: 700px) {
+  .app {
+    padding:
+      25px 14px;
+  }
+
+  .notebook {
+    padding:
+      35px 24px 35px 35px;
+
+    border-radius: 24px;
+  }
+
+  .notebook::before {
+    left: 20px;
+  }
+
+  .task-list {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    align-items: center;
+  }
+
+  .header h1 {
+    font-size: 3.5rem;
+  }
+
+  .subtitle {
+    max-width: 220px;
+  }
+
+  .task-card {
+    padding: 22px;
+  }
+}
+.task-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 24px;
+}
+
+.section-label {
+  margin: 0;
+
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+
+  color: #8b8982;
+}
+
+.add-task-button {
+  padding: 9px 17px;
+
+  border: 1px solid #44423f;
+  border-radius: 999px;
+
+  background: transparent;
+
+  color: #33322f;
+
+  cursor: pointer;
+
+  font-size: 0.72rem;
+
+  transition: 150ms ease;
+}
+
+.add-task-button:hover {
+  background: #33322f;
+  color: #faf8f1;
+}
+
+/* Add task form */
+
+.add-task-form {
+  display: grid;
+
+  grid-template-columns:
+    1fr 160px auto;
+
+  align-items: end;
+
+  gap: 16px;
+
+  margin-bottom: 30px;
+
+  padding: 22px;
+
+  border:
+    1px dashed rgba(50, 50, 50, 0.25);
+
+  border-radius: 16px;
+
+  background:
+    rgba(255, 255, 255, 0.35);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.form-field label {
+  font-size: 0.65rem;
+
+  letter-spacing: 0.1em;
+
+  text-transform: uppercase;
+
+  color: #88867f;
+}
+
+.form-field input {
+  width: 100%;
+
+  padding: 11px 4px;
+
+  border: none;
+  border-bottom:
+    1px solid rgba(50, 50, 50, 0.3);
+
+  outline: none;
+
+  background: transparent;
+
+  color: #292929;
+
+  font-family:
+    "Patrick Hand",
+    cursive;
+
+  font-size: 1.3rem;
+}
+
+.form-field input:focus {
+  border-bottom-color: #333;
+}
+
+.form-field input::placeholder {
+  color: #bbb8af;
+}
+
+.create-task-button {
+  padding: 12px 18px;
+
+  border: none;
+  border-radius: 999px;
+
+  background: #33322f;
+
+  color: #faf8f1;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  font-size: 0.7rem;
+
+  transition: 150ms ease;
+}
+
+.create-task-button:hover {
+  transform: translateY(-1px);
+
+  background: #1f1f1e;
+}
+
+@media (max-width: 700px) {
+  .add-task-form {
+    grid-template-columns: 1fr;
+  }
+
+  .create-task-button {
+    width: 100%;
+  }
+}
