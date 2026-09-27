@@ -67,6 +67,26 @@ function App() {
     await loadTasks();
   }
 
+  async function deleteTask(taskId: number) {
+    const response = await fetch(
+      `${API_URL}/tasks/${taskId}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    if (!response.ok) {
+      console.error("Failed to delete task");
+      return;
+    }
+
+    setTasks((currentTasks) =>
+      currentTasks.filter(
+        (task) => task.id !== taskId
+      )
+    );
+  }
+
   return (
     <main className="app">
       <section className="notebook">
@@ -161,6 +181,7 @@ function App() {
             <TaskTimer
               key={task.id}
               taskId={task.id}
+              onDelete={deleteTask}
             />
           ))}
         </section>

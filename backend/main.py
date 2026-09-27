@@ -150,6 +150,27 @@ def get_progress(
         "is_running": is_running,
         "current_start_time": current_start_time
     }
+@app.delete("/tasks/{task_id}")
+def delete_task(
+    task_id : int,
+    db : Session = Depends(get_db)
+):
+    task = db.query(models.Task).filter(
+        models.Task.id == task_id
+    ).first()
+    Session = db.query(models.TimerSession).filter(
+        models.TimerSession.task_id == task_id
+    ).delete()
+    if task is None:
+        raise HTTPException(
+            status_code=404,
+            detail="task not found"
+        )
+    db.delete(task)
+    db.commit()
+        
+    return {"message": "Task deleted successfully"}
+
 @app.get("/")
 def root():
     return {"message": "Personal Task Timer API is running"}

@@ -13,14 +13,18 @@ type Progress = {
 
 type Props = {
   taskId: number;
+  onDelete: (taskId: number) => Promise<void>;
 };
 
-function TaskTimer({ taskId }: Props) {
+function TaskTimer({ taskId, onDelete }: Props) {
   const [progress, setProgress] =
     useState<Progress | null>(null);
 
   const [elapsedSeconds, setElapsedSeconds] =
     useState(0);
+
+  const [isDeleting, setIsDeleting] =
+    useState(false);
 
   async function loadProgress() {
     const response = await fetch(
@@ -107,6 +111,24 @@ function TaskTimer({ taskId }: Props) {
     await loadProgress();
   }
 
+  async function handleDelete() {
+    if (
+      !window.confirm(
+        `Delete "${progress?.name ?? "this task"}"?`
+      )
+    ) {
+      return;
+    }
+
+    setIsDeleting(true);
+
+    try {
+      await onDelete(taskId);
+    } finally {
+      setIsDeleting(false);
+    }
+  }
+
   function formatTime(totalSeconds: number) {
     const hours = Math.floor(
       totalSeconds / 3600
@@ -180,9 +202,21 @@ function TaskTimer({ taskId }: Props) {
           </p>
         </div>
 
-        <span className="percentage">
-          {Math.round(percentage)}%
-        </span>
+        <div className="task-card-actions">
+          <span className="percentage">
+            {Math.round(percentage)}%
+          </span>
+
+          <button
+            type="button"
+            className="delete-task-button"
+            onClick={handleDelete}
+            disabled={isDeleting}
+            aria-label={`Delete ${progress.name}`}
+          >
+            {isDeleting ? "Deleting..." : "Delete"}
+          </button>
+        </div>
       </div>
 
       <div className="progress-track">
